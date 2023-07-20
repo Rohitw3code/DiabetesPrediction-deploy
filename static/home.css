@@ -1,0 +1,113 @@
+:root{
+  --dark-col : #D8C4B6;
+  --light-violet : #4F709C;
+  --light-col : #F5EFE7;
+  --light-purple : #213555;
+
+  --font-Pop : Poppins;
+  --font-play : DM Serif Display;
+  --font-Quick : Quicksand;
+
+--input-focus: #f0922d;
+--font-color: #ffffff;
+--input-font-color: #080000;
+--button-font-color: #080000;
+--font-color-sub: #666;
+--bg-color: #fff;
+}
+
+.background-image {
+  background-image: url("../static/employee.jpg");
+  background-size: cover;
+  background-position: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html{
+  font-family:var(--font-Pop),'sans-serif';
+}
+
+nav {
+    background-color: #646bef;
+    color: #fff;
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    
+  }
+
+  .logo {
+    width: 50px; /* Adjust the width as needed */
+    height: 50px; /* Adjust the height as needed */
+    justify-content: center;
+  }
+
+  .title {
+    font-size: 20px; /* Adjust the font size as needed */
+    font-weight: bold;
+    justify-content: center;
+    align-items: center;
+    top:0;
+  }
+
+
+  .floating-card{
+    float: right;
+    padding: 20px;
+    border-radius: 10%;
+    margin: 20px;
+    width: 30%;
+    color: #fff;
+    background-color: #4F709C;
+  }
+
+  p{
+    font-size: 15px;
+  }
+
+.field-container{
+  display: flex;
+  flex-direction: column;
+}
+
+.field{
+  padding: 10px;
+  margin-block: 5px;
+  border-radius: 10px;
+  border-width: 0;
+  width: 70%;
+  border-color: white;
+  outline: none;
+}
+
+/* styles.css */
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.centered-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}

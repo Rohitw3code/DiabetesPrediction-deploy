@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--Fontawesome-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- <link rel="stylesheet" href="home.css"/> -->
+
+  <!-- connecting Google fonts-->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=DM Serif Display">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quicksand">
+
+  <title>Employee Attirition</title>
+  <link rel="stylesheet" href="../static/home.css">
+</head>
+</head>
+
+<body>
+
+  <div class="background-image"></div>
+
+  <nav>
+    <img src="{{ url_for('static', filename='division.png') }}" alt="Logo" class="logo">
+    <span class="title">Employee Attirition</span>
+  </nav>
+
+
+  <div class="floating-card">
+    <div class="card">
+      <h2>Attirition Prediction</h2>
+      <p>These are the list of feature of employee to train the model kindly fill the fields inorder to predict the
+        final output</p>
+      <div class="field-container">
+        <input class="field" placeholder="value1" />
+        <input class="field" placeholder="value1" />
+        <input class="field" placeholder="value1" />
+        <input class="field" placeholder="value1" />
+        <div class="container">
+          <button class="centered-button">Predict</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="image-container">
+        <img src="{{ url_for('static', filename='employee.jpg') }}" alt="Logo" class="screen_img">
+    </div> -->
+
+
+
+</body>
+
+</html>
