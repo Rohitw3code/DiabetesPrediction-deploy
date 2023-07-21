@@ -72,7 +72,7 @@ nav {
     margin: 20px;
     width: 30%;
     color: #fff;
-    background-color: #4F709C;
+    background-color: #20344f;
   }
 
   p{
@@ -80,8 +80,9 @@ nav {
   }
 
 .field-container{
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Adjust the number of columns as needed */
+  grid-gap: 10px; /* Adjust the gap between grid items as needed */
 }
 
 .field{
@@ -89,6 +90,7 @@ nav {
   margin-block: 5px;
   border-radius: 10px;
   border-width: 0;
+  text-align: center;
   width: 70%;
   border-color: white;
   outline: none;
