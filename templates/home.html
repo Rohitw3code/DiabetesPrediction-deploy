@@ -34,6 +34,7 @@
       <p>These are the list of feature of employee to train the model kindly fill the fields inorder to predict the
         final output</p>
       <div class="field-container">
+        <form action="/process_text" method="post">
         <input class="field" type="text" placeholder="Age"  id="age" name="age" required/>
         <input class="field" type="text" placeholder="JobInvolvement"  id="job_involvement" name="job_involvement" required/>
         <input class="field" type="text" placeholder="JobLevel"  id="job_level" name="job_level" required/>
@@ -43,11 +44,13 @@
         <input class="field" type="text" placeholder="YearsInCurrentRole"  id="years_in_currentRole" name="years_in_currentRole" required/>
         <input class="field" type="text" placeholder="MaritalStatus"  id="marital_status" name="marital_status" required/>
         <input class="field" type="text" placeholder="YearsWithCurrManager"  id="years_with_curr_manager" name="years_with_curr_manager" required/>
+        <input class="field" type="text" placeholder="OverTime"  id="encoded_OverTime" name="encoded_OverTime" required/>
+        <div class="container">
+          <button class="centered-button" type="submit">Predict</button>
+        </div>
+          </form>l̥
       </div>
       <div class="supp">
-      <div class="container">
-        <button class="centered-button">Predict</button>
-      </div>
       </div>
     </div>
   </div>
