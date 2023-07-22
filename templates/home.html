@@ -21,14 +21,12 @@
 </head>
 
 <body>
-
-  <div class="background-image"></div>
-
   <nav>
     <img src="{{ url_for('static', filename='division.png') }}" alt="Logo" class="logo">
     <span class="title">Employee Attirition</span>
   </nav>
 
+  <div class="background-image"></div>
 
   <div class="floating-card">
     <div class="card">
@@ -45,13 +43,14 @@
         <input class="field" type="text" placeholder="YearsInCurrentRole"  id="years_in_currentRole" name="years_in_currentRole" required/>
         <input class="field" type="text" placeholder="MaritalStatus"  id="marital_status" name="marital_status" required/>
         <input class="field" type="text" placeholder="YearsWithCurrManager"  id="years_with_curr_manager" name="years_with_curr_manager" required/>
-        <div class="container">
-          <button class="centered-button">Predict</button>
-        </div>
+      </div>
+      <div class="supp">
+      <div class="container">
+        <button class="centered-button">Predict</button>
+      </div>
       </div>
     </div>
   </div>
-
   <!-- <div class="image-container">
         <img src="{{ url_for('static', filename='employee.jpg') }}" alt="Logo" class="screen_img">
     </div> -->
