@@ -34,6 +34,10 @@ def process_text():
     else:
         return "Method not allowed"
 
+@app.route('/output')
+def output():
+    return "Output"
+
 
 if __name__ == "__main__":
     app.run(debug=True,port=5001)
