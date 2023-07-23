@@ -60,12 +60,15 @@ nav {
 
 
   .floating-card{
-    width: 100vw;
+    width: 100%;
     min-height: 100vh;
     background-image:linear-gradient(rgb(128, 6, 128) 0%,rgba(128, 6, 128, 0.653) 70%), url("../static/svg.png");
     background-position: bottom;
     background-size: 100%;
     background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   h2{
@@ -83,9 +86,11 @@ nav {
 .field-container{
   padding-inline: 1.5rem;
   gap: 1rem;
+  width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
   flex-wrap: wrap;
 }
 
@@ -112,9 +117,7 @@ nav {
   padding-bottom: 1rem;
 }
 .container {
-  width: 100px;
-  margin-top: 1rem;
-  margin-inline: 50%;
+  width: 50%;
   background-color: #020002;
   border-radius: 5px;
   color: white;
