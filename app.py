@@ -30,13 +30,10 @@ def process_text():
         features['encoded_MaritalStatus'] = request.form['marital_status']
         features['YearsWithCurrManager'] = request.form['years_with_curr_manager']
         p_df = pd.DataFrame(features,index=[0])
-        return f"Text input received: {'Yes' if int(loaded_model.predict(p_df)[0]) == 1 else 'No' }"
+        pred_v = 'Yes' if int(loaded_model.predict(p_df)[0]) == 1 else 'No'
+        return render_template("output.html",pred=pred_v)
     else:
         return "Method not allowed"
-
-@app.route('/output')
-def output():
-    return "Output"
 
 
 if __name__ == "__main__":

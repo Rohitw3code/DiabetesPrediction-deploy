@@ -71,6 +71,15 @@ nav {
     align-items: center;
   }
 
+  .nav{
+    display: flex;
+    justify-content: start;
+  }
+
+  span{
+    margin-left: 20px;
+  }
+
   h2{
     font-size: clamp(2rem,5vw,3rem);
   }
@@ -92,6 +101,22 @@ nav {
   flex-direction: column;
   justify-content: center;
   flex-wrap: wrap;
+}
+
+.output{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.pred_card{
+  background-color: #213555;
+  padding: 20px;
+  border-radius: 10px;
+}
+.pred_text{
+  font-size: large;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+   color: #F5EFE7;
 }
 
 .field{
@@ -117,7 +142,7 @@ nav {
   padding-bottom: 1rem;
 }
 .container {
-  width: 50%;
+  width: 20%;
   background-color: #020002;
   border-radius: 5px;
   color: white;
