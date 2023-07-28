@@ -10,6 +10,19 @@ with open("model_file.pkl", "rb") as file:
     loaded_model = pickle.load(file)
 
 
+file_path = 'label_encoder.pkl'
+# Load the LabelEncoder from the saved file
+with open(file_path, 'rb') as file:
+    loaded_label_encoder = pickle.load(file)
+
+
+file_path = 'min_max_scaler.pkl'
+# Load the MinMaxScaler from the saved file
+with open(file_path, 'rb') as file:
+    loaded_scaler = pickle.load(file)
+
+
+
 @app.route("/")
 def home():
     return render_template("home.html")
@@ -30,7 +43,20 @@ def process_text():
         features['encoded_MaritalStatus'] = request.form['marital_status']
         features['YearsWithCurrManager'] = request.form['years_with_curr_manager']
         p_df = pd.DataFrame(features,index=[0])
-        pred_v = 'Yes' if int(loaded_model.predict(p_df)[0]) == 1 else 'No'
+
+        # LabelEncoder
+        columns = ['encoded_Attrition', 'encoded_BusinessTravel', 'encoded_Department',
+                'encoded_EducationField', 'encoded_Gender', 'encoded_JobRole', 'encoded_MaritalStatus',
+                  'encoded_OverTime']
+
+        columns = ['encoded_MaritalStatus','encoded_OverTime']
+        
+        for col in columns:
+            p_df[col] = loaded_label_encoder.fit_transform(p_df[col])
+        
+        scaled_data = loaded_scaler.fit_transform(p_df)
+        new_df = pd.DataFrame(scaled_data, columns=p_df.columns)
+        pred_v = 'Yes' if int(loaded_model.predict(new_df)[0]) == 1 else 'No'
         return render_template("output.html",pred=pred_v)
     else:
         return "Method not allowed"
