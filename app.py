@@ -45,10 +45,6 @@ def process_text():
         p_df = pd.DataFrame(features,index=[0])
 
         # LabelEncoder
-        columns = ['encoded_Attrition', 'encoded_BusinessTravel', 'encoded_Department',
-                'encoded_EducationField', 'encoded_Gender', 'encoded_JobRole', 'encoded_MaritalStatus',
-                  'encoded_OverTime']
-
         columns = ['encoded_MaritalStatus','encoded_OverTime']
         
         for col in columns:
