@@ -24,7 +24,7 @@ html{
 .background-image {
   width: 100%;
   height: 100vh;
-  background-image: linear-gradient(to bottom, #01353525 0%,#01353525 50%, rgb(128, 6, 128) 90%) , url("../static/employee.jpg");
+  background-image: linear-gradient(to bottom, #01353525 0%,#01353525 50%, rgb(128, 6, 128) 90%) , url("../static/back.jpg");
   background-size: cover;
   background-position: center;
 }
