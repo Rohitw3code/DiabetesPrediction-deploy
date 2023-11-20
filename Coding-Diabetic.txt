@@ -1,0 +1,1889 @@
+=========================== Xgboost====================
+import pandas as pd
+import numpy as np
+from xgboost import XGBClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import confusion_matrix, accuracy_score, recall_score
+
+# Step 2: Load and preprocess the dataset
+# Replace 'diabetic_dataset.csv' with the path to your dataset file
+data = pd.read_csv('diabetic_dataset.csv')
+
+# Perform any necessary data preprocessing here (e.g., handling missing values, encoding categorical variables)
+
+# Assume the target column is named 'diabetes' and the rest are features
+X = data.drop('diabetes', axis=1)
+y = data['diabetes']
+
+# Step 3: Split the data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Step 4: Train the XGBoost model
+model = XGBClassifier()
+model.fit(X_train, y_train)
+
+# Step 5: Make predictions
+y_pred = model.predict(X_test)
+
+# Step 6: Calculate the confusion matrix
+cm = confusion_matrix(y_test, y_pred)
+
+# Step 7: Calculate accuracy
+accuracy = accuracy_score(y_test, y_pred)
+
+# Calculate sensitivity (recall) for the positive class (diabetes = 1)
+sensitivity = recall_score(y_test, y_pred)
+
+print("Confusion Matrix:")
+print(cm)
+print("Accuracy:", accuracy)
+print("Sensitivity (Recall):", sensitivity) 
+
+========================= LightGBM =================================
+import pandas as pd
+import numpy as np
+import lightgbm as lgb
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import confusion_matrix, accuracy_score, recall_score
+
+# Step 2: Load and preprocess the dataset
+# Replace 'diabetic_dataset.csv' with the path to your dataset file
+data = pd.read_csv('diabetic_dataset.csv')
+
+# Perform any necessary data preprocessing here (e.g., handling missing values, encoding categorical variables)
+
+# Assume the target column is named 'diabetes' and the rest are features
+X = data.drop('diabetes', axis=1)
+y = data['diabetes']
+
+# Step 3: Split the data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Step 4: Train the LightGBM model
+model = lgb.LGBMClassifier()
+model.fit(X_train, y_train)
+
+# Step 5: Make predictions
+y_pred = model.predict(X_test)
+
+# Step 6: Calculate the confusion matrix
+cm = confusion_matrix(y_test, y_pred)
+
+# Step 7: Calculate accuracy
+accuracy = accuracy_score(y_test, y_pred)
+
+# Calculate sensitivity (recall) for the positive class (diabetes = 1)
+sensitivity = recall_score(y_test, y_pred)
+
+print("Confusion Matrix:")
+print(cm)
+print("Accuracy:", accuracy)
+print("Sensitivity (Recall):", sensitivity) 
+=================================  CNN ========================== 
+import pandas as pd
+import numpy as np
+import tensorflow as tf
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import confusion_matrix, accuracy_score, recall_score
+
+# Step 2: Load and preprocess the dataset
+# Replace 'diabetic_dataset.csv' with the path to your dataset file
+data = pd.read_csv('diabetic_dataset.csv')
+
+# Perform any necessary data preprocessing here
+# For CNN, reshape the data to represent images
+# Assuming 'X' contains the features, and 'y' contains the target 'diabetes' column
+X = data.drop('diabetes', axis=1).values.reshape(-1, 28, 28, 1)
+y = data['diabetes'].values
+
+# Step 3: Split the data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Step 4: Build and train the CNN model
+model = tf.keras.Sequential([
+    tf.keras.layers.Conv2D(32, (3, 3), activation='relu', input_shape=(28, 28, 1)),
+    tf.keras.layers.MaxPooling2D((2, 2)),
+    tf.keras.layers.Flatten(),
+    tf.keras.layers.Dense(128, activation='relu'),
+    tf.keras.layers.Dense(1, activation='sigmoid')  # Binary classification (diabetes or not)
+])
+
+model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+model.fit(X_train, y_train, epochs=10, batch_size=32)
+
+# Step 5: Make predictions
+y_pred = model.predict(X_test)
+y_pred = np.round(y_pred).flatten()  # Convert probabilities to binary predictions
+
+# Step 6: Calculate the confusion matrix, accuracy, and sensitivity
+cm = confusion_matrix(y_test, y_pred)
+accuracy = accuracy_score(y_test, y_pred)
+sensitivity = recall_score(y_test, y_pred)
+
+print("Confusion Matrix:")
+print(cm)
+print("Accuracy:", accuracy)
+print("Sensitivity (Recall):", sensitivity) 
+
+================================= CatBoost =============================== 
+import pandas as pd
+import numpy as np
+from catboost import CatBoostClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import confusion_matrix, accuracy_score, recall_score
+
+# Step 2: Load and preprocess the dataset
+# Replace 'diabetic_dataset.csv' with the path to your dataset file
+data = pd.read_csv('diabetic_dataset.csv')
+
+# Perform any necessary data preprocessing here
+# Assume 'X' contains the features and 'y' contains the target 'diabetes' column
+X = data.drop('diabetes', axis=1)
+y = data['diabetes']
+
+# Step 3: Split the data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Step 4: Build and train the CatBoost model
+model = CatBoostClassifier()
+model.fit(X_train, y_train)
+
+# Step 5: Make predictions
+y_pred = model.predict(X_test)
+
+# Step 6: Calculate the confusion matrix, accuracy, and sensitivity
+cm = confusion_matrix(y_test, y_pred)
+accuracy = accuracy_score(y_test, y_pred)
+sensitivity = recall_score(y_test, y_pred)
+
+print("Confusion Matrix:")
+print(cm)
+print("Accuracy:", accuracy)
+print("Sensitivity (Recall):", sensitivity) 
+======================================================== Adaboost================================== 
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import AdaBoostClassifier
+from sklearn.metrics import confusion_matrix, accuracy_score, recall_score
+
+# Step 2: Load and preprocess the dataset
+# Replace 'diabetic_dataset.csv' with the path to your dataset file
+data = pd.read_csv('diabetic_dataset.csv')
+
+# Perform any necessary data preprocessing here
+# Assume 'X' contains the features and 'y' contains the target 'diabetes' column
+X = data.drop('diabetes', axis=1)
+y = data['diabetes']
+
+# Step 3: Split the data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Step 4: Build and train the AdaBoost model
+model = AdaBoostClassifier()
+model.fit(X_train, y_train)
+
+# Step 5: Make predictions
+y_pred = model.predict(X_test)
+
+# Step 6: Calculate the confusion matrix, accuracy, and sensitivity
+cm = confusion_matrix(y_test, y_pred)
+accuracy = accuracy_score(y_test, y_pred)
+sensitivity = recall_score(y_test, y_pred)
+
+print("Confusion Matrix:")
+print(cm)
+print("Accuracy:", accuracy)
+print("Sensitivity (Recall):", sensitivity) 
+
+========================================= Bagging =====================
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import BaggingClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import confusion_matrix, accuracy_score, recall_score
+
+# Step 2: Load and preprocess the dataset
+# Replace 'diabetic_dataset.csv' with the path to your dataset file
+data = pd.read_csv('diabetic_dataset.csv')
+
+# Perform any necessary data preprocessing here
+# Assume 'X' contains the features and 'y' contains the target 'diabetes' column
+X = data.drop('diabetes', axis=1)
+y = data['diabetes']
+
+# Step 3: Split the data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Step 4: Build and train the Bagging model
+base_estimator = DecisionTreeClassifier()  # You can choose any base estimator
+model = BaggingClassifier(base_estimator=base_estimator, n_estimators=10, random_state=42)
+model.fit(X_train, y_train)
+
+# Step 5: Make predictions
+y_pred = model.predict(X_test)
+
+# Step 6: Calculate the confusion matrix, accuracy, and sensitivity
+cm = confusion_matrix(y_test, y_pred)
+accuracy = accuracy_score(y_test, y_pred)
+sensitivity = recall_score(y_test, y_pred)
+
+print("Confusion Matrix:")
+print(cm)
+print("Accuracy:", accuracy)
+print("Sensitivity (Recall):", sensitivity) 
+========================================= AutoML======================================= 
+import pandas as pd
+from sklearn.model_selection import train_test_split
+import autosklearn.classification
+from sklearn.metrics import confusion_matrix, accuracy_score, recall_score
+
+# Step 2: Load and preprocess the dataset
+# Replace 'diabetic_dataset.csv' with the path to your dataset file
+data = pd.read_csv('diabetic_dataset.csv')
+
+# Perform any necessary data preprocessing here
+# Assume 'X' contains the features and 'y' contains the target 'diabetes' column
+X = data.drop('diabetes', axis=1)
+y = data['diabetes']
+
+# Step 3: Split the data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Step 4: Use AutoML (AutoSklearn) to find the best model
+automl = autosklearn.classification.AutoSklearnClassifier(time_left_for_this_task=300, per_run_time_limit=30)
+automl.fit(X_train, y_train)
+
+# Step 5: Make predictions
+y_pred = automl.predict(X_test)
+
+# Step 6: Calculate the confusion matrix, accuracy, and sensitivity
+cm = confusion_matrix(y_test, y_pred)
+accuracy = accuracy_score(y_test, y_pred)
+sensitivity = recall_score(y_test, y_pred)
+
+print("Confusion Matrix:")
+print(cm)
+print("Accuracy:", accuracy)
+print("Sensitivity (Recall):", sensitivity) 
+
+============================================================ h20==========================================
+
+import pandas as pd
+import h2o
+from h2o.automl import H2OAutoML
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import confusion_matrix, accuracy_score, recall_score
+
+# Step 2: Load and preprocess the dataset
+# Replace 'diabetic_dataset.csv' with the path to your dataset file
+data = pd.read_csv('diabetic_dataset.csv')
+
+# Perform any necessary data preprocessing here
+# Assume 'X' contains the features and 'y' contains the target 'diabetes' column
+X = data.drop('diabetes', axis=1)
+y = data['diabetes']
+
+# Step 3: Split the data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Step 4: Initialize and setup H2O
+h2o.init()
+
+# Convert pandas DataFrames to H2O Frames
+train_data = h2o.H2OFrame(pd.concat([X_train, y_train], axis=1))
+test_data = h2o.H2OFrame(pd.concat([X_test, y_test], axis=1))
+
+# Identify the target column
+target_column = 'diabetes'
+train_data[target_column] = train_data[target_column].asfactor()
+test_data[target_column] = test_data[target_column].asfactor()
+
+# Step 5: Use H2O AutoML to find the best model
+aml = H2OAutoML(max_runtime_secs=300)  # Set the maximum runtime in seconds
+aml.train(x=X_train.columns.tolist(), y=target_column, training_frame=train_data)
+
+# Step 6: Make predictions
+best_model = aml.leader
+y_pred = best_model.predict(test_data).as_data_frame().values.flatten()
+
+# Step 7: Calculate the confusion matrix, accuracy, and sensitivity
+cm = confusion_matrix(y_test, y_pred)
+accuracy = accuracy_score(y_test, y_pred)
+sensitivity = recall_score(y_test, y_pred)
+
+print("Confusion Matrix:")
+print(cm)
+print("Accuracy:", accuracy)
+print("Sensitivity (Recall):", sensitivity)
+
+# Shutdown the H2O cluster
+h2o.shutdown() 
+
+======================================================= 10 fold cross validation =============================== 
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import KFold
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score, recall_score
+
+# Step 1: Load and preprocess the dataset
+# Replace 'diabetic_dataset.csv' with the path to your dataset file
+data = pd.read_csv('diabetic_dataset.csv')
+
+# Perform any necessary data preprocessing here
+# Assume 'X' contains the features and 'y' contains the target 'diabetes' column
+X = data.drop('diabetes', axis=1)
+y = data['diabetes']
+
+# Step 2: Choose a suitable cross-validation strategy
+# Here, we use 10-fold cross-validation
+kf = KFold(n_splits=10, shuffle=True, random_state=42)
+
+# Step 3: Create the cross-validation folds and perform training and evaluation
+accuracy_scores = []
+sensitivity_scores = []
+
+for train_index, test_index in kf.split(X):
+    X_train, X_test = X.iloc[train_index], X.iloc[test_index]
+    y_train, y_test = y.iloc[train_index], y.iloc[test_index]
+
+    # Step 4: Train the model
+    model = RandomForestClassifier()  # Choose any model of your choice
+    model.fit(X_train, y_train)
+
+    # Step 5: Make predictions on the test data
+    y_pred = model.predict(X_test)
+
+    # Step 6: Calculate performance metrics for each fold
+    accuracy = accuracy_score(y_test, y_pred)
+    sensitivity = recall_score(y_test, y_pred)
+
+    accuracy_scores.append(accuracy)
+    sensitivity_scores.append(sensitivity)
+
+# Step 7: Calculate average performance metrics across all folds
+average_accuracy = np.mean(accuracy_scores)
+average_sensitivity = np.mean(sensitivity_scores)
+
+print("Average Accuracy:", average_accuracy)
+print("Average Sensitivity (Recall):", average_sensitivity)
+
+======================================================= ROC Curve==========================================
+
+1. Random Forest 
+
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import roc_curve, roc_auc_score
+
+# Step 1: Load and preprocess the dataset
+# Replace 'diabetic_dataset.csv' with the path to your dataset file
+data = pd.read_csv('diabetic_dataset.csv')
+
+# Perform any necessary data preprocessing here
+# Assume 'X' contains the features and 'y' contains the target 'diabetes' column
+X = data.drop('diabetes', axis=1)
+y = data['diabetes']
+
+# Step 2: Split the data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Step 3: Train a binary classification model
+model = RandomForestClassifier()  # Choose any binary classifier
+model.fit(X_train, y_train)
+
+# Step 4: Get predicted probabilities
+y_probs = model.predict_proba(X_test)[:, 1]  # Probabilities of the positive class (diabetes = 1)
+
+# Step 5: Calculate the ROC curve
+fpr, tpr, thresholds = roc_curve(y_test, y_probs)
+
+# Step 6: Plot the ROC curve
+plt.figure(figsize=(8, 6))
+plt.plot(fpr, tpr, color='b', lw=2, label='ROC curve')
+plt.plot([0, 1], [0, 1], color='gray', linestyle='--')  # Random guessing line
+plt.xlabel('False Positive Rate (FPR)')
+plt.ylabel('True Positive Rate (TPR) (Sensitivity)')
+plt.title('Receiver Operating Characteristic (ROC) Curve')
+plt.legend(loc='lower right')
+plt.grid(True)
+plt.show()
+
+# Optional: Calculate and print the Area Under the ROC Curve (AUC)
+auc = roc_auc_score(y_test, y_probs)
+print("AUC:", auc)
+
+2. LightGBM 
+
+import pandas as pd
+import lightgbm as lgb
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import roc_curve, roc_auc_score
+
+# Load the dataset (assuming you have preprocessed the dataset and split it)
+diabetic_data = pd.read_csv('preprocessed_diabetic_dataset.csv')
+
+# Separate features and target variable
+X = diabetic_data.drop(columns='diabetes_control')
+y = diabetic_data['diabetes_control']
+
+# Split the dataset into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Convert data to LightGBM Dataset format
+train_data = lgb.Dataset(X_train, label=y_train)
+
+# Define the LightGBM parameters
+lgb_params = {
+    'objective': 'binary',
+    'metric': 'binary_logloss',
+    'boosting_type': 'gbdt',
+    'seed': 42,
+    'n_jobs': -1,
+}
+
+# Train the LightGBM classifier
+classifier = lgb.train(lgb_params, train_data)
+
+# Get predicted probabilities on the test set
+y_prob = classifier.predict(X_test)
+
+# Calculate the ROC curve
+fpr, tpr, thresholds = roc_curve(y_test, y_prob)
+
+# Calculate the AUC
+auc_score = roc_auc_score(y_test, y_prob)
+
+# Plot the ROC curve
+plt.figure(figsize=(8, 6))
+plt.plot(fpr, tpr, label='ROC Curve (AUC = {:.2f})'.format(auc_score))
+plt.plot([0, 1], [0, 1], 'k--', label='Random Guess')
+plt.xlabel('False Positive Rate (FPR)')
+plt.ylabel('True Positive Rate (TPR)')
+plt.title('ROC Curve for Diabetic Dataset using LightGBM')
+plt.legend(loc='lower right')
+plt.grid(True)
+plt.show()
+
+3. CatBoost 
+
+import pandas as pd
+import catboost as cb
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import roc_curve, roc_auc_score
+
+# Load the dataset (assuming you have preprocessed the dataset and split it)
+diabetic_data = pd.read_csv('preprocessed_diabetic_dataset.csv')
+
+# Separate features and target variable
+X = diabetic_data.drop(columns='diabetes_control')
+y = diabetic_data['diabetes_control']
+
+# Split the dataset into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Train the CatBoost classifier
+classifier = cb.CatBoostClassifier(random_seed=42, verbose=False)
+classifier.fit(X_train, y_train)
+
+# Get predicted probabilities on the test set
+y_prob = classifier.predict_proba(X_test)[:, 1]
+
+# Calculate the ROC curve
+fpr, tpr, thresholds = roc_curve(y_test, y_prob)
+
+# Calculate the AUC
+auc_score = roc_auc_score(y_test, y_prob)
+
+# Plot the ROC curve
+plt.figure(figsize=(8, 6))
+plt.plot(fpr, tpr, label='ROC Curve (AUC = {:.2f})'.format(auc_score))
+plt.plot([0, 1], [0, 1], 'k--', label='Random Guess')
+plt.xlabel('False Positive Rate (FPR)')
+plt.ylabel('True Positive Rate (TPR)')
+plt.title('ROC Curve for Diabetic Dataset using CatBoost')
+plt.legend(loc='lower right')
+plt.grid(True)
+plt.show()
+
+4. XGBoost 
+import pandas as pd
+import xgboost as xgb
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import roc_curve, roc_auc_score
+
+# Load the dataset (assuming you have preprocessed the dataset and split it)
+diabetic_data = pd.read_csv('preprocessed_diabetic_dataset.csv')
+
+# Separate features and target variable
+X = diabetic_data.drop(columns='diabetes_control')
+y = diabetic_data['diabetes_control']
+
+# Split the dataset into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Train the XGBoost classifier
+classifier = xgb.XGBClassifier(random_state=42, verbosity=0)
+classifier.fit(X_train, y_train)
+
+# Get predicted probabilities on the test set
+y_prob = classifier.predict_proba(X_test)[:, 1]
+
+# Calculate the ROC curve
+fpr, tpr, thresholds = roc_curve(y_test, y_prob)
+
+# Calculate the AUC
+auc_score = roc_auc_score(y_test, y_prob)
+
+# Plot the ROC curve
+plt.figure(figsize=(8, 6))
+plt.plot(fpr, tpr, label='ROC Curve (AUC = {:.2f})'.format(auc_score))
+plt.plot([0, 1], [0, 1], 'k--', label='Random Guess')
+plt.xlabel('False Positive Rate (FPR)')
+plt.ylabel('True Positive Rate (TPR)')
+plt.title('ROC Curve for Diabetic Dataset using XGBoost')
+plt.legend(loc='lower right')
+plt.grid(True)
+plt.show()
+
+5. SVM 
+
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.svm import SVC
+from sklearn.metrics import roc_curve, roc_auc_score
+
+# Load the dataset (assuming you have preprocessed the dataset and split it)
+diabetic_data = pd.read_csv('preprocessed_diabetic_dataset.csv')
+
+# Separate features and target variable
+X = diabetic_data.drop(columns='diabetes_control')
+y = diabetic_data['diabetes_control']
+
+# Split the dataset into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Train the SVM classifier with a probability=True to enable probability estimates
+classifier = SVC(kernel='linear', probability=True, random_state=42)
+classifier.fit(X_train, y_train)
+
+# Get the decision scores (probabilities) on the test set
+y_prob = classifier.predict_proba(X_test)[:, 1]
+
+# Calculate the ROC curve
+fpr, tpr, thresholds = roc_curve(y_test, y_prob)
+
+# Calculate the AUC
+auc_score = roc_auc_score(y_test, y_prob)
+
+# Plot the ROC curve
+plt.figure(figsize=(8, 6))
+plt.plot(fpr, tpr, label='ROC Curve (AUC = {:.2f})'.format(auc_score))
+plt.plot([0, 1], [0, 1], 'k--', label='Random Guess')
+plt.xlabel('False Positive Rate (FPR)')
+plt.ylabel('True Positive Rate (TPR)')
+plt.title('ROC Curve for Diabetic Dataset using SVM')
+plt.legend(loc='lower right')
+plt.grid(True)
+plt.show()
+=========================================== SVM with different Kernel=== 
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.svm import SVC
+from sklearn.metrics import confusion_matrix, accuracy_score, recall_score
+
+# Load the dataset (assuming you have preprocessed the dataset and split it)
+diabetic_data = pd.read_csv('preprocessed_diabetic_dataset.csv')
+
+# Separate features and target variable
+X = diabetic_data.drop(columns='diabetes_control')
+y = diabetic_data['diabetes_control']
+
+# Split the dataset into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Train SVM classifiers with different kernels
+kernels = ['linear', 'poly', 'rbf', 'sigmoid']
+results = {}
+
+for kernel in kernels:
+    classifier = SVC(kernel=kernel, random_state=42)
+    classifier.fit(X_train, y_train)
+    
+    # Make predictions on the test set
+    y_pred = classifier.predict(X_test)
+    
+    # Calculate the confusion matrix
+    conf_matrix = confusion_matrix(y_test, y_pred)
+    
+    # Calculate the accuracy rate
+    accuracy = accuracy_score(y_test, y_pred)
+    
+    # Calculate the sensitivity (recall) for class 1 (diabetes_control == 1)
+    sensitivity = recall_score(y_test, y_pred)
+    
+    # Store the results in a dictionary
+    results[kernel] = {
+        'confusion_matrix': conf_matrix,
+        'accuracy': accuracy,
+        'sensitivity': sensitivity
+    }
+
+# Print the results
+for kernel, result in results.items():
+    print("Kernel:", kernel)
+    print("Confusion Matrix:")
+    print(result['confusion_matrix'])
+    print("Accuracy: {:.2f}%".format(result['accuracy'] * 100))
+    print("Sensitivity (Recall) for class 1: {:.2f}%".format(result['sensitivity'] * 100))
+    print()
+
+
+=============================== Roc of SVM for Different Kernel=======
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.svm import SVC
+from sklearn.metrics import roc_curve, roc_auc_score, auc
+
+# Load the dataset (assuming you have preprocessed the dataset and split it)
+diabetic_data = pd.read_csv('preprocessed_diabetic_dataset.csv')
+
+# Separate features and target variable
+X = diabetic_data.drop(columns='diabetes_control')
+y = diabetic_data['diabetes_control']
+
+# Split the dataset into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Train SVM classifiers with different kernels and calculate ROC curve for each
+kernels = ['linear', 'poly', 'rbf', 'sigmoid']
+roc_curves = {}
+
+for kernel in kernels:
+    classifier = SVC(kernel=kernel, probability=True, random_state=42)
+    classifier.fit(X_train, y_train)
+    
+    # Get predicted probabilities on the test set
+    y_prob = classifier.predict_proba(X_test)[:, 1]
+    
+    # Calculate the ROC curve
+    fpr, tpr, _ = roc_curve(y_test, y_prob)
+    
+    # Calculate the AUC
+    auc_score = auc(fpr, tpr)
+    
+    # Store the ROC curve and AUC in a dictionary
+    roc_curves[kernel] = {
+        'fpr': fpr,
+        'tpr': tpr,
+        'auc': auc_score
+    }
+
+# Plot the ROC curves for each kernel
+plt.figure(figsize=(8, 6))
+for kernel in kernels:
+    plt.plot(roc_curves[kernel]['fpr'], roc_curves[kernel]['tpr'], label=f'Kernel: {kernel}, AUC = {roc_curves[kernel]["auc"]:.2f}')
+
+plt.plot([0, 1], [0, 1], 'k--', label='Random Guess')
+plt.xlabel('False Positive Rate (FPR)')
+plt.ylabel('True Positive Rate (TPR)')
+plt.title('ROC Curves for Diabetic Dataset with SVM and Different Kernels')
+plt.legend(loc='lower right')
+plt.grid(True)
+plt.show()
+
+============================================= SVM ================== 
+from sklearn.svm import SVC
+from sklearn.metrics import confusion_matrix, accuracy_score, recall_score
+
+# Step 2: Train the SVM model
+svm_model = SVC(kernel='linear')  # You can choose a different kernel if needed
+svm_model.fit(X_train, y_train)
+
+# Step 3: Make predictions on the test set
+y_pred = svm_model.predict(X_test)
+
+# Step 4: Compute the confusion matrix
+conf_matrix = confusion_matrix(y_test, y_pred)
+print("Confusion Matrix:")
+print(conf_matrix)
+
+# Step 5: Calculate accuracy rate
+accuracy = accuracy_score(y_test, y_pred)
+print("Accuracy:", accuracy)
+
+# Step 6: Compute sensitivity (recall or true positive rate)
+sensitivity = recall_score(y_test, y_pred)
+print("Sensitivity:", sensitivity) 
+
+============================================== RF ========================
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import confusion_matrix, accuracy_score, recall_score
+
+# Step 2: Train the Random Forest model
+rf_model = RandomForestClassifier(n_estimators=100)  # You can adjust the number of trees (n_estimators) as needed
+rf_model.fit(X_train, y_train)
+
+# Step 3: Make predictions on the test set
+y_pred = rf_model.predict(X_test)
+
+# Step 4: Compute the confusion matrix
+conf_matrix = confusion_matrix(y_test, y_pred)
+print("Confusion Matrix:")
+print(conf_matrix)
+
+# Step 5: Calculate accuracy rate
+accuracy = accuracy_score(y_test, y_pred)
+print("Accuracy:", accuracy)
+
+# Step 6: Compute sensitivity (recall or true positive rate)
+sensitivity = recall_score(y_test, y_pred)
+print("Sensitivity:", sensitivity)
+
+============================================ NB ===========================
+
+from sklearn.naive_bayes import GaussianNB
+from sklearn.metrics import confusion_matrix, accuracy_score, recall_score
+
+# Step 2: Train the Random Naive Bayes model
+nb_model = GaussianNB()
+nb_model.fit(X_train, y_train)
+
+# Step 3: Make predictions on the test set
+y_pred = nb_model.predict(X_test)
+
+# Step 4: Compute the confusion matrix
+conf_matrix = confusion_matrix(y_test, y_pred)
+print("Confusion Matrix:")
+print(conf_matrix)
+
+# Step 5: Calculate accuracy rate
+accuracy = accuracy_score(y_test, y_pred)
+print("Accuracy:", accuracy)
+
+# Step 6: Compute sensitivity (recall or true positive rate)
+sensitivity = recall_score(y_test, y_pred)
+print("Sensitivity:", sensitivity) 
+================================================= Logistic Regression =====================
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import confusion_matrix, accuracy_score, recall_score
+from sklearn.model_selection import train_test_split
+
+# Assuming you have your data in X (features) and y (labels)
+# Split the data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Step 1: Train the Logistic Regression model
+logreg_model = LogisticRegression()
+logreg_model.fit(X_train, y_train)
+
+# Step 2: Make predictions on the test set
+y_pred = logreg_model.predict(X_test)
+
+# Step 3: Compute the confusion matrix
+conf_matrix = confusion_matrix(y_test, y_pred)
+print("Confusion Matrix:")
+print(conf_matrix)
+
+# Step 4: Calculate accuracy rate
+accuracy = accuracy_score(y_test, y_pred)
+print("Accuracy:", accuracy)
+
+# Step 5: Compute sensitivity (recall or true positive rate)
+sensitivity = recall_score(y_test, y_pred)
+print("Sensitivity:", sensitivity)
+
+=========================================================== ROC(Adaboost)=========================
+
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import AdaBoostClassifier
+from sklearn.metrics import roc_curve, roc_auc_score
+# Assuming your dataset is loaded into X and y
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+# Create an AdaBoost classifier
+adaboost_clf = AdaBoostClassifier(random_state=42)
+
+# Train the classifier
+adaboost_clf.fit(X_train, y_train)
+# Get predicted probabilities for the positive class (diabetic class)
+y_pred_prob = adaboost_clf.predict_proba(X_test)[:, 1]
+fpr, tpr, thresholds = roc_curve(y_test, y_pred_prob)
+roc_auc = roc_auc_score(y_test, y_pred_prob)
+plt.figure(figsize=(8, 6))
+plt.plot(fpr, tpr, color='blue', lw=2, label='ROC curve (AUC = %0.2f)' % roc_auc)
+plt.plot([0, 1], [0, 1], color='gray', linestyle='--')
+plt.xlim([0.0, 1.0])
+plt.ylim([0.0, 1.05])
+plt.xlabel('False Positive Rate')
+plt.ylabel('True Positive Rate')
+plt.title('ROC Curve - Diabetic Dataset with Adaboost')
+plt.legend(loc='lower right')
+plt.show()
+============================================================= Accuracy with Cross Validation======================= 
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import cross_val_score, train_test_split
+from sklearn.svm import SVC
+# Split data into training and test sets (optional)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+# Create the SVM model
+svm_model = SVC(kernel='linear')  # You can choose other kernels (e.g., 'rbf') if needed
+# K-Fold Cross-Validation
+k_fold = 5  # Set the number of folds (e.g., 5, 10, etc.)
+
+accuracy_scores_kfold = cross_val_score(svm_model, X, y, cv=k_fold)
+mean_accuracy_kfold = np.mean(accuracy_scores_kfold)
+
+print(f"Accuracy using K-Fold Cross-Validation (K={k_fold}): {mean_accuracy_kfold:.2f}")
+# Leave-One-Out Cross-Validation
+loocv = len(X)
+
+accuracy_scores_loocv = cross_val_score(svm_model, X, y, cv=loocv)
+mean_accuracy_loocv = np.mean(accuracy_scores_loocv)
+
+print(f"Accuracy using Leave-One-Out Cross-Validation (LOOCV): {mean_accuracy_loocv:.2f}")
+# Fit the model on the training data
+svm_model.fit(X_train, y_train)
+
+# Evaluate on the test set
+test_accuracy = svm_model.score(X_test, y_test)
+print(f"Accuracy on the test set: {test_accuracy:.2f}") 
+
+============================================= Precision, Recall and F-Measure(LR)------------------------ 
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import confusion_matrix, precision_score, recall_score, f1_score
+
+# Load the diabetic dataset (replace 'diabetic_data.csv' with the actual dataset file name)
+data = pd.read_csv('diabetic_data.csv')
+
+# Prepare features (X) and target variable (y)
+X = data.drop('diabetic_label', axis=1)
+y = data['diabetic_label']
+
+# Split the dataset into training and test sets (80% train, 20% test)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Create and train the Logistic Regression model
+logistic_model = LogisticRegression()
+logistic_model.fit(X_train, y_train)
+
+# Make predictions on the test set
+y_pred = logistic_model.predict(X_test)
+
+# Calculate confusion matrix
+conf_matrix = confusion_matrix(y_test, y_pred)
+
+# Extract values from confusion matrix
+TN, FP, FN, TP = conf_matrix.ravel()
+
+# Calculate Precision, Recall, and F-Measure
+precision = precision_score(y_test, y_pred)
+recall = recall_score(y_test, y_pred)
+f_measure = f1_score(y_test, y_pred)
+
+print("Precision:", precision)
+print("Recall:", recall)
+print("F-Measure:", f_measure) 
+==================================================== SVM ===================
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.svm import SVC
+from sklearn.metrics import confusion_matrix, precision_score, recall_score, f1_score
+
+# Load the diabetic dataset (replace 'diabetic_data.csv' with the actual dataset file name)
+data = pd.read_csv('diabetic_data.csv')
+
+# Prepare features (X) and target variable (y)
+X = data.drop('diabetic_label', axis=1)
+y = data['diabetic_label']
+
+# Split the dataset into training and test sets (80% train, 20% test)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Create and train the SVM model
+svm_model = SVC(kernel='linear')
+svm_model.fit(X_train, y_train)
+
+# Make predictions on the test set
+y_pred = svm_model.predict(X_test)
+
+# Calculate confusion matrix
+conf_matrix = confusion_matrix(y_test, y_pred)
+
+# Extract values from confusion matrix
+TN, FP, FN, TP = conf_matrix.ravel()
+
+# Calculate Precision, Recall, and F-Measure
+precision = precision_score(y_test, y_pred)
+recall = recall_score(y_test, y_pred)
+f_measure = f1_score(y_test, y_pred)
+
+print("Precision:", precision)
+print("Recall:", recall)
+print("F-Measure:", f_measure)
+================================================= NB =========================== 
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import GaussianNB
+from sklearn.metrics import confusion_matrix, precision_score, recall_score, f1_score
+
+# Load the diabetic dataset (replace 'diabetic_data.csv' with the actual dataset file name)
+data = pd.read_csv('diabetic_data.csv')
+
+# Prepare features (X) and target variable (y)
+X = data.drop('diabetic_label', axis=1)
+y = data['diabetic_label']
+
+# Split the dataset into training and test sets (80% train, 20% test)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Create and train the Naive Bayes model
+nb_model = GaussianNB()
+nb_model.fit(X_train, y_train)
+
+# Make predictions on the test set
+y_pred = nb_model.predict(X_test)
+
+# Calculate confusion matrix
+conf_matrix = confusion_matrix(y_test, y_pred)
+
+# Extract values from confusion matrix
+TN, FP, FN, TP = conf_matrix.ravel()
+
+# Calculate Precision, Recall, and F-Measure
+precision = precision_score(y_test, y_pred)
+recall = recall_score(y_test, y_pred)
+f_measure = f1_score(y_test, y_pred)
+
+print("Precision:", precision)
+print("Recall:", recall)
+print("F-Measure:", f_measure) 
+
+=========================================== RF ==================================
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import confusion_matrix, precision_score, recall_score, f1_score
+
+# Load the diabetic dataset (replace 'diabetic_data.csv' with the actual dataset file name)
+data = pd.read_csv('diabetic_data.csv')
+
+# Prepare features (X) and target variable (y)
+X = data.drop('diabetic_label', axis=1)
+y = data['diabetic_label']
+
+# Split the dataset into training and test sets (80% train, 20% test)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Create and train the Random Forest model
+rf_model = RandomForestClassifier(n_estimators=100, random_state=42)
+rf_model.fit(X_train, y_train)
+
+# Make predictions on the test set
+y_pred = rf_model.predict(X_test)
+
+# Calculate confusion matrix
+conf_matrix = confusion_matrix(y_test, y_pred)
+
+# Extract values from confusion matrix
+TN, FP, FN, TP = conf_matrix.ravel()
+
+# Calculate Precision, Recall, and F-Measure
+precision = precision_score(y_test, y_pred)
+recall = recall_score(y_test, y_pred)
+f_measure = f1_score(y_test, y_pred)
+
+print("Precision:", precision)
+print("Recall:", recall)
+print("F-Measure:", f_measure) 
+
+======================================== XGBoost========================== 
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split
+import xgboost as xgb
+from sklearn.metrics import confusion_matrix, precision_score, recall_score, f1_score
+
+# Load the diabetic dataset (replace 'diabetic_data.csv' with the actual dataset file name)
+data = pd.read_csv('diabetic_data.csv')
+
+# Prepare features (X) and target variable (y)
+X = data.drop('diabetic_label', axis=1)
+y = data['diabetic_label']
+
+# Split the dataset into training and test sets (80% train, 20% test)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Create and train the XGBoost model
+xgb_model = xgb.XGBClassifier(n_estimators=100, random_state=42)
+xgb_model.fit(X_train, y_train)
+
+# Make predictions on the test set
+y_pred = xgb_model.predict(X_test)
+
+# Calculate confusion matrix
+conf_matrix = confusion_matrix(y_test, y_pred)
+
+# Extract values from confusion matrix
+TN, FP, FN, TP = conf_matrix.ravel()
+
+# Calculate Precision, Recall, and F-Measure
+precision = precision_score(y_test, y_pred)
+recall = recall_score(y_test, y_pred)
+f_measure = f1_score(y_test, y_pred)
+
+print("Precision:", precision)
+print("Recall:", recall)
+print("F-Measure:", f_measure)
+=========================================== LightGBM====================
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split
+import lightgbm as lgb
+from sklearn.metrics import confusion_matrix, precision_score, recall_score, f1_score
+
+# Load the diabetic dataset (replace 'diabetic_data.csv' with the actual dataset file name)
+data = pd.read_csv('diabetic_data.csv')
+
+# Prepare features (X) and target variable (y)
+X = data.drop('diabetic_label', axis=1)
+y = data['diabetic_label']
+
+# Split the dataset into training and test sets (80% train, 20% test)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Create and train the LightGBM model
+lgb_model = lgb.LGBMClassifier(n_estimators=100, random_state=42)
+lgb_model.fit(X_train, y_train)
+
+# Make predictions on the test set
+y_pred = lgb_model.predict(X_test)
+
+# Calculate confusion matrix
+conf_matrix = confusion_matrix(y_test, y_pred)
+
+# Extract values from confusion matrix
+TN, FP, FN, TP = conf_matrix.ravel()
+
+# Calculate Precision, Recall, and F-Measure
+precision = precision_score(y_test, y_pred)
+recall = recall_score(y_test, y_pred)
+f_measure = f1_score(y_test, y_pred)
+
+print("Precision:", precision)
+print("Recall:", recall)
+print("F-Measure:", f_measure)
+
+================================================ Catboost=========================
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from catboost import CatBoostClassifier
+from sklearn.metrics import confusion_matrix, precision_score, recall_score, f1_score
+
+# Load the diabetic dataset (replace 'diabetic_data.csv' with the actual dataset file name)
+data = pd.read_csv('diabetic_data.csv')
+
+# Prepare features (X) and target variable (y)
+X = data.drop('diabetic_label', axis=1)
+y = data['diabetic_label']
+
+# Split the dataset into training and test sets (80% train, 20% test)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Create and train the CatBoost model
+catboost_model = CatBoostClassifier(iterations=100, random_state=42, verbose=0)
+catboost_model.fit(X_train, y_train)
+
+# Make predictions on the test set
+y_pred = catboost_model.predict(X_test)
+
+# Calculate confusion matrix
+conf_matrix = confusion_matrix(y_test, y_pred)
+
+# Extract values from confusion matrix
+TN, FP, FN, TP = conf_matrix.ravel()
+
+# Calculate Precision, Recall, and F-Measure
+precision = precision_score(y_test, y_pred)
+recall = recall_score(y_test, y_pred)
+f_measure = f1_score(y_test, y_pred)
+
+print("Precision:", precision)
+print("Recall:", recall)
+print("F-Measure:", f_measure)
+=====================================Adaboost====================
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import AdaBoostClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import confusion_matrix, precision_score, recall_score, f1_score
+
+# Load the diabetic dataset (replace 'diabetic_data.csv' with the actual dataset file name)
+data = pd.read_csv('diabetic_data.csv')
+
+# Prepare features (X) and target variable (y)
+X = data.drop('diabetic_label', axis=1)
+y = data['diabetic_label']
+
+# Split the dataset into training and test sets (80% train, 20% test)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Create a weak learner (e.g., Decision Tree) for AdaBoost
+base_estimator = DecisionTreeClassifier(max_depth=1)
+
+# Create and train the AdaBoost model
+adaboost_model = AdaBoostClassifier(base_estimator=base_estimator, n_estimators=100, random_state=42)
+adaboost_model.fit(X_train, y_train)
+
+# Make predictions on the test set
+y_pred = adaboost_model.predict(X_test)
+
+# Calculate confusion matrix
+conf_matrix = confusion_matrix(y_test, y_pred)
+
+# Extract values from confusion matrix
+TN, FP, FN, TP = conf_matrix.ravel()
+
+# Calculate Precision, Recall, and F-Measure
+precision = precision_score(y_test, y_pred)
+recall = recall_score(y_test, y_pred)
+f_measure = f1_score(y_test, y_pred)
+
+print("Precision:", precision)
+print("Recall:", recall)
+print("F-Measure:", f_measure)
+========================================== Catboost with hyperparameter tuning and cross-validation=====
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split, GridSearchCV
+from catboost import CatBoostClassifier
+from sklearn.metrics import accuracy_score
+
+# Load the diabetic dataset (replace 'diabetic_data.csv' with the actual dataset file name)
+data = pd.read_csv('diabetic_data.csv')
+
+# Prepare features (X) and target variable (y)
+X = data.drop('diabetic_label', axis=1)
+y = data['diabetic_label']
+
+# Split the dataset into training and test sets (80% train, 20% test)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Define the parameter grid for hyperparameter tuning
+param_grid = {
+    'iterations': [100, 200, 300],
+    'learning_rate': [0.01, 0.1, 0.2],
+    'depth': [4, 6, 8]
+}
+
+# Create a CatBoost classifier
+catboost_model = CatBoostClassifier()
+
+# Perform Grid Search for hyperparameter tuning
+grid_search = GridSearchCV(catboost_model, param_grid, cv=5)
+grid_search.fit(X_train, y_train)
+
+# Get the best hyperparameters from Grid Search
+best_params = grid_search.best_params_
+
+# Train the CatBoost model with the best hyperparameters on the full training set
+best_catboost_model = CatBoostClassifier(**best_params)
+best_catboost_model.fit(X_train, y_train)
+
+# Make predictions on the test set
+y_pred = best_catboost_model.predict(X_test)
+
+# Calculate accuracy
+accuracy = accuracy_score(y_test, y_pred)
+
+print("Best Hyperparameters:", best_params)
+print("Accuracy:", accuracy) 
+========================================== catboost(cross-validation) =============
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import cross_val_score
+from catboost import CatBoostClassifier
+
+# Load the diabetic dataset (replace 'diabetic_data.csv' with the actual dataset file name)
+data = pd.read_csv('diabetic_data.csv')
+
+# Prepare features (X) and target variable (y)
+X = data.drop('diabetic_label', axis=1)
+y = data['diabetic_label']
+
+# Create a CatBoost classifier
+catboost_model = CatBoostClassifier()
+
+# Perform k-fold cross-validation and get accuracy scores
+cv_accuracy_scores = cross_val_score(catboost_model, X, y, cv=5, scoring='accuracy')
+
+# Calculate the average accuracy and standard deviation
+average_accuracy = np.mean(cv_accuracy_scores)
+std_accuracy = np.std(cv_accuracy_scores)
+
+print("Cross-Validation Accuracy Scores:", cv_accuracy_scores)
+print("Average Accuracy:", average_accuracy)
+print("Standard Deviation of Accuracy:", std_accuracy)
+
+======================== XGboost(Hyperparameter) =======
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split, RandomizedSearchCV
+from xgboost import XGBClassifier
+from sklearn.metrics import accuracy_score
+
+# Load the diabetic dataset (replace 'diabetic_data.csv' with the actual dataset file name)
+data = pd.read_csv('diabetic_data.csv')
+
+# Prepare features (X) and target variable (y)
+X = data.drop('diabetic_label', axis=1)
+y = data['diabetic_label']
+
+# Split the dataset into training and test sets (80% train, 20% test)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Define the parameter grid for hyperparameter tuning
+param_grid = {
+    'n_estimators': [100, 200, 300],
+    'learning_rate': [0.01, 0.1, 0.2],
+    'max_depth': [3, 5, 7],
+    'subsample': [0.8, 0.9, 1.0],
+    'colsample_bytree': [0.8, 0.9, 1.0]
+}
+
+# Create an XGBoost classifier
+xgb_model = XGBClassifier()
+
+# Perform Randomized Search for hyperparameter tuning
+random_search = RandomizedSearchCV(xgb_model, param_distributions=param_grid, n_iter=10, cv=5, random_state=42)
+random_search.fit(X_train, y_train)
+
+# Get the best hyperparameters from Randomized Search
+best_params = random_search.best_params_
+
+# Train the XGBoost model with the best hyperparameters on the full training set
+best_xgb_model = XGBClassifier(**best_params)
+best_xgb_model.fit(X_train, y_train)
+
+# Make predictions on the test set
+y_pred = best_xgb_model.predict(X_test)
+
+# Calculate accuracy
+accuracy = accuracy_score(y_test, y_pred)
+
+print("Best Hyperparameters:", best_params)
+print("Accuracy:", accuracy) 
+
+======================================= XGboost(10-fold ) ==============
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import cross_val_score
+from xgboost import XGBClassifier
+
+# Load the diabetic dataset (replace 'diabetic_data.csv' with the actual dataset file name)
+data = pd.read_csv('diabetic_data.csv')
+
+# Prepare features (X) and target variable (y)
+X = data.drop('diabetic_label', axis=1)
+y = data['diabetic_label']
+
+# Create an XGBoost classifier
+xgb_model = XGBClassifier()
+
+# Perform 10-fold cross-validation and get accuracy scores
+cv_accuracy_scores = cross_val_score(xgb_model, X, y, cv=10, scoring='accuracy')
+
+# Calculate the average accuracy and standard deviation
+average_accuracy = np.mean(cv_accuracy_scores)
+std_accuracy = np.std(cv_accuracy_scores)
+
+print("Cross-Validation Accuracy Scores:", cv_accuracy_scores)
+print("Average Accuracy:", average_accuracy)
+print("Standard Deviation of Accuracy:", std_accuracy)
+================================================ LightGBM ( Hyperparameter) ============== 
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split, RandomizedSearchCV
+import lightgbm as lgb
+from sklearn.metrics import accuracy_score
+
+# Load the diabetic dataset (replace 'diabetic_data.csv' with the actual dataset file name)
+data = pd.read_csv('diabetic_data.csv')
+
+# Prepare features (X) and target variable (y)
+X = data.drop('diabetic_label', axis=1)
+y = data['diabetic_label']
+
+# Split the dataset into training and test sets (80% train, 20% test)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Define the parameter grid for hyperparameter tuning
+param_grid = {
+    'boosting_type': ['gbdt', 'dart', 'goss'],
+    'num_leaves': [20, 30, 40],
+    'learning_rate': [0.01, 0.1, 0.2],
+    'max_depth': [5, 7, -1],
+    'min_child_samples': [10, 20, 30],
+    'subsample': [0.8, 0.9, 1.0],
+    'colsample_bytree': [0.8, 0.9, 1.0]
+}
+
+# Create a LightGBM classifier
+lgb_model = lgb.LGBMClassifier()
+
+# Perform Randomized Search for hyperparameter tuning
+random_search = RandomizedSearchCV(lgb_model, param_distributions=param_grid, n_iter=10, cv=5, random_state=42)
+random_search.fit(X_train, y_train)
+
+# Get the best hyperparameters from Randomized Search
+best_params = random_search.best_params_
+
+# Train the LightGBM model with the best hyperparameters on the full training set
+best_lgb_model = lgb.LGBMClassifier(**best_params)
+best_lgb_model.fit(X_train, y_train)
+
+# Make predictions on the test set
+y_pred = best_lgb_model.predict(X_test)
+
+# Calculate accuracy
+accuracy = accuracy_score(y_test, y_pred)
+
+print("Best Hyperparameters:", best_params)
+print("Accuracy:", accuracy)
+============================================LightGBM(10-fold) ===========
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import cross_val_score
+import lightgbm as lgb
+from sklearn.metrics import accuracy_score
+
+# Load the diabetic dataset (replace 'diabetic_data.csv' with the actual dataset file name)
+data = pd.read_csv('diabetic_data.csv')
+
+# Prepare features (X) and target variable (y)
+X = data.drop('diabetic_label', axis=1)
+y = data['diabetic_label']
+
+# Create a LightGBM classifier
+lgb_model = lgb.LGBMClassifier()
+
+# Perform 10-fold cross-validation and get accuracy scores
+cv_accuracy_scores = cross_val_score(lgb_model, X, y, cv=10, scoring='accuracy')
+
+# Calculate the average accuracy and standard deviation
+average_accuracy = np.mean(cv_accuracy_scores)
+std_accuracy = np.std(cv_accuracy_scores)
+
+print("Cross-Validation Accuracy Scores:", cv_accuracy_scores)
+print("Average Accuracy:", average_accuracy)
+print("Standard Deviation of Accuracy:", std_accuracy)
+================================================= Adaboost(10-fold) =========
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import cross_val_score
+from sklearn.ensemble import AdaBoostClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score
+
+# Load the diabetic dataset (replace 'diabetic_data.csv' with the actual dataset file name)
+data = pd.read_csv('diabetic_data.csv')
+
+# Prepare features (X) and target variable (y)
+X = data.drop('diabetic_label', axis=1)
+y = data['diabetic_label']
+
+# Create a weak learner (e.g., Decision Tree) for AdaBoost
+base_estimator = DecisionTreeClassifier(max_depth=1)
+
+# Create an AdaBoost classifier
+adaboost_model = AdaBoostClassifier(base_estimator=base_estimator)
+
+# Perform 10-fold cross-validation and get accuracy scores
+cv_accuracy_scores = cross_val_score(adaboost_model, X, y, cv=10, scoring='accuracy')
+
+# Calculate the average accuracy and standard deviation
+average_accuracy = np.mean(cv_accuracy_scores)
+std_accuracy = np.std(cv_accuracy_scores)
+
+print("Cross-Validation Accuracy Scores:", cv_accuracy_scores)
+print("Average Accuracy:", average_accuracy)
+print("Standard Deviation of Accuracy:", std_accuracy)
+
+=========================================== Adaboost (Hyper)==============
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.ensemble import AdaBoostClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score
+
+# Load the diabetic dataset (replace 'diabetic_data.csv' with the actual dataset file name)
+data = pd.read_csv('diabetic_data.csv')
+
+# Prepare features (X) and target variable (y)
+X = data.drop('diabetic_label', axis=1)
+y = data['diabetic_label']
+
+# Create a weak learner (e.g., Decision Tree) for AdaBoost
+base_estimator = DecisionTreeClassifier(max_depth=1)
+
+# Create an AdaBoost classifier
+adaboost_model = AdaBoostClassifier(base_estimator=base_estimator)
+
+# Define the parameter grid for hyperparameter tuning
+param_grid = {
+    'n_estimators': [50, 100, 150],
+    'learning_rate': [0.01, 0.1, 0.2]
+}
+
+# Perform Grid Search for hyperparameter tuning
+grid_search = GridSearchCV(adaboost_model, param_grid, cv=5)
+grid_search.fit(X, y)
+
+# Get the best hyperparameters from Grid Search
+best_params = grid_search.best_params_
+
+# Train the AdaBoost model with the best hyperparameters on the full dataset
+best_adaboost_model = AdaBoostClassifier(base_estimator=base_estimator, **best_params)
+best_adaboost_model.fit(X, y)
+
+# Make predictions on the dataset
+y_pred = best_adaboost_model.predict(X)
+
+# Calculate accuracy
+accuracy = accuracy_score(y, y_pred)
+
+print("Best Hyperparameters:", best_params)
+print("Accuracy:", accuracy) 
+========================================== Bagginng(Hyper)====================
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.ensemble import BaggingClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score
+
+# Load the diabetic dataset (replace 'diabetic_data.csv' with the actual dataset file name)
+data = pd.read_csv('diabetic_data.csv')
+
+# Prepare features (X) and target variable (y)
+X = data.drop('diabetic_label', axis=1)
+y = data['diabetic_label']
+
+# Create a base estimator (e.g., Decision Tree) for Bagging
+base_estimator = DecisionTreeClassifier()
+
+# Create a Bagging classifier
+bagging_model = BaggingClassifier(base_estimator=base_estimator)
+
+# Define the parameter grid for hyperparameter tuning
+param_grid = {
+    'n_estimators': [50, 100, 150],
+    'max_samples': [0.8, 0.9, 1.0],
+    'max_features': [0.8, 0.9, 1.0]
+}
+
+# Perform Grid Search for hyperparameter tuning
+grid_search = GridSearchCV(bagging_model, param_grid, cv=5)
+grid_search.fit(X, y)
+
+# Get the best hyperparameters from Grid Search
+best_params = grid_search.best_params_
+
+# Train the Bagging model with the best hyperparameters on the full dataset
+best_bagging_model = BaggingClassifier(base_estimator=base_estimator, **best_params)
+best_bagging_model.fit(X, y)
+
+# Make predictions on the dataset
+y_pred = best_bagging_model.predict(X)
+
+# Calculate accuracy
+accuracy = accuracy_score(y, y_pred)
+
+print("Best Hyperparameters:", best_params)
+print("Accuracy:", accuracy)
+
+===================================== Bagging (10-fold) ===================
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import cross_val_score
+from sklearn.ensemble import BaggingClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score
+
+# Load the diabetic dataset (replace 'diabetic_data.csv' with the actual dataset file name)
+data = pd.read_csv('diabetic_data.csv')
+
+# Prepare features (X) and target variable (y)
+X = data.drop('diabetic_label', axis=1)
+y = data['diabetic_label']
+
+# Create a base estimator (e.g., Decision Tree) for Bagging
+base_estimator = DecisionTreeClassifier()
+
+# Create a Bagging classifier
+bagging_model = BaggingClassifier(base_estimator=base_estimator)
+
+# Perform 10-fold cross-validation and get accuracy scores
+cv_accuracy_scores = cross_val_score(bagging_model, X, y, cv=10, scoring='accuracy')
+
+# Calculate the average accuracy and standard deviation
+average_accuracy = np.mean(cv_accuracy_scores)
+std_accuracy = np.std(cv_accuracy_scores)
+
+print("Cross-Validation Accuracy Scores:", cv_accuracy_scores)
+print("Average Accuracy:", average_accuracy)
+print("Standard Deviation of Accuracy:", std_accuracy)
+================================= SVM (Hyper) ============================ 
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.svm import SVC
+from sklearn.metrics import accuracy_score
+
+# Load the diabetic dataset (replace 'diabetic_data.csv' with the actual dataset file name)
+data = pd.read_csv('diabetic_data.csv')
+
+# Prepare features (X) and target variable (y)
+X = data.drop('diabetic_label', axis=1)
+y = data['diabetic_label']
+
+# Split the dataset into training and test sets (80% train, 20% test)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Define the parameter grid for hyperparameter tuning
+param_grid = {
+    'C': [0.1, 1, 10],
+    'kernel': ['linear', 'rbf'],
+    'gamma': ['scale', 'auto']
+}
+
+# Create an SVM classifier
+svm_model = SVC()
+
+# Perform Grid Search for hyperparameter tuning
+grid_search = GridSearchCV(svm_model, param_grid, cv=5)
+grid_search.fit(X_train, y_train)
+
+# Get the best hyperparameters from Grid Search
+best_params = grid_search.best_params_
+
+# Train the SVM model with the best hyperparameters on the full training set
+best_svm_model = SVC(**best_params)
+best_svm_model.fit(X_train, y_train)
+
+# Make predictions on the test set
+y_pred = best_svm_model.predict(X_test)
+
+# Calculate accuracy
+accuracy = accuracy_score(y_test, y_pred)
+
+print("Best Hyperparameters:", best_params)
+print("Accuracy:", accuracy)
+====================================== SVM(10-fold) ==================
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import cross_val_score
+from sklearn.svm import SVC
+from sklearn.metrics import accuracy_score
+
+# Load the diabetic dataset (replace 'diabetic_data.csv' with the actual dataset file name)
+data = pd.read_csv('diabetic_data.csv')
+
+# Prepare features (X) and target variable (y)
+X = data.drop('diabetic_label', axis=1)
+y = data['diabetic_label']
+
+# Create an SVM classifier
+svm_model = SVC()
+
+# Perform 10-fold cross-validation and get accuracy scores
+cv_accuracy_scores = cross_val_score(svm_model, X, y, cv=10, scoring='accuracy')
+
+# Calculate the average accuracy and standard deviation
+average_accuracy = np.mean(cv_accuracy_scores)
+std_accuracy = np.std(cv_accuracy_scores)
+
+print("Cross-Validation Accuracy Scores:", cv_accuracy_scores)
+print("Average Accuracy:", average_accuracy)
+print("Standard Deviation of Accuracy:", std_accuracy)
+==================================================== RF (Hyper)=======================
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score
+
+# Load the diabetic dataset (replace 'diabetic_data.csv' with the actual dataset file name)
+data = pd.read_csv('diabetic_data.csv')
+
+# Prepare features (X) and target variable (y)
+X = data.drop('diabetic_label', axis=1)
+y = data['diabetic_label']
+
+# Split the dataset into training and test sets (80% train, 20% test)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Define the parameter grid for hyperparameter tuning
+param_grid = {
+    'n_estimators': [50, 100, 150],
+    'max_depth': [None, 10, 20],
+    'min_samples_split': [2, 5, 10],
+    'min_samples_leaf': [1, 2, 4],
+    'max_features': ['auto', 'sqrt', 'log2']
+}
+
+# Create a Random Forest classifier
+rf_model = RandomForestClassifier()
+
+# Perform Grid Search for hyperparameter tuning
+grid_search = GridSearchCV(rf_model, param_grid, cv=5)
+grid_search.fit(X_train, y_train)
+
+# Get the best hyperparameters from Grid Search
+best_params = grid_search.best_params_
+
+# Train the Random Forest model with the best hyperparameters on the full training set
+best_rf_model = RandomForestClassifier(**best_params)
+best_rf_model.fit(X_train, y_train)
+
+# Make predictions on the test set
+y_pred = best_rf_model.predict(X_test)
+
+# Calculate accuracy
+accuracy = accuracy_score(y_test, y_pred)
+
+print("Best Hyperparameters:", best_params)
+print("Accuracy:", accuracy)
+
+========================================== RF ( 10-fold) ============
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import cross_val_score
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score
+
+# Load the diabetic dataset (replace 'diabetic_data.csv' with the actual dataset file name)
+data = pd.read_csv('diabetic_data.csv')
+
+# Prepare features (X) and target variable (y)
+X = data.drop('diabetic_label', axis=1)
+y = data['diabetic_label']
+
+# Create a Random Forest classifier
+rf_model = RandomForestClassifier()
+
+# Perform 10-fold cross-validation and get accuracy scores
+cv_accuracy_scores = cross_val_score(rf_model, X, y, cv=10, scoring='accuracy')
+
+# Calculate the average accuracy and standard deviation
+average_accuracy = np.mean(cv_accuracy_scores)
+std_accuracy = np.std(cv_accuracy_scores)
+
+print("Cross-Validation Accuracy Scores:", cv_accuracy_scores)
+print("Average Accuracy:", average_accuracy)
+print("Standard Deviation of Accuracy:", std_accuracy) 
+==================================== NB (Hyper)====================
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.metrics import accuracy_score
+
+# Load the diabetic dataset (replace 'diabetic_data.csv' with the actual dataset file name)
+data = pd.read_csv('diabetic_data.csv')
+
+# Prepare features (X) and target variable (y)
+X = data.drop('diabetic_label', axis=1)
+y = data['diabetic_label']
+
+# Split the dataset into training and test sets (80% train, 20% test)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Create a Multinomial Naive Bayes classifier
+nb_model = MultinomialNB()
+
+# Define the parameter grid for hyperparameter tuning
+param_grid = {
+    'alpha': [0.1, 0.5, 1.0, 2.0]
+}
+
+# Perform Grid Search for hyperparameter tuning
+grid_search = GridSearchCV(nb_model, param_grid, cv=5)
+grid_search.fit(X_train, y_train)
+
+# Get the best hyperparameters from Grid Search
+best_params = grid_search.best_params_
+
+# Train the Multinomial Naive Bayes model with the best hyperparameters on the full training set
+best_nb_model = MultinomialNB(alpha=best_params['alpha'])
+best_nb_model.fit(X_train, y_train)
+
+# Make predictions on the test set
+y_pred = best_nb_model.predict(X_test)
+
+# Calculate accuracy
+accuracy = accuracy_score(y_test, y_pred)
+
+print("Best Hyperparameters:", best_params)
+print("Accuracy:", accuracy)
+
+===================================== NB (10-fold)================
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import cross_val_score
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.metrics import accuracy_score
+
+# Load the diabetic dataset (replace 'diabetic_data.csv' with the actual dataset file name)
+data = pd.read_csv('diabetic_data.csv')
+
+# Prepare features (X) and target variable (y)
+X = data.drop('diabetic_label', axis=1)
+y = data['diabetic_label']
+
+# Create a Multinomial Naive Bayes classifier
+nb_model = MultinomialNB()
+
+# Perform 10-fold cross-validation and get accuracy scores
+cv_accuracy_scores = cross_val_score(nb_model, X, y, cv=10, scoring='accuracy')
+
+# Calculate the average accuracy and standard deviation
+average_accuracy = np.mean(cv_accuracy_scores)
+std_accuracy = np.std(cv_accuracy_scores)
+
+print("Cross-Validation Accuracy Scores:", cv_accuracy_scores)
+print("Average Accuracy:", average_accuracy)
+print("Standard Deviation of Accuracy:", std_accuracy) 
+
+============================= LR (Hyper)==============
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
+
+# Load the diabetic dataset (replace 'diabetic_data.csv' with the actual dataset file name)
+data = pd.read_csv('diabetic_data.csv')
+
+# Prepare features (X) and target variable (y)
+X = data.drop('diabetic_label', axis=1)
+y = data['diabetic_label']
+
+# Split the dataset into training and test sets (80% train, 20% test)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Define the parameter grid for hyperparameter tuning
+param_grid = {
+    'penalty': ['l1', 'l2'],
+    'C': [0.01, 0.1, 1.0, 10.0]
+}
+
+# Create a Logistic Regression classifier
+lr_model = LogisticRegression()
+
+# Perform Grid Search for hyperparameter tuning
+grid_search = GridSearchCV(lr_model, param_grid, cv=5)
+grid_search.fit(X_train, y_train)
+
+# Get the best hyperparameters from Grid Search
+best_params = grid_search.best_params_
+
+# Train the Logistic Regression model with the best hyperparameters on the full training set
+best_lr_model = LogisticRegression(**best_params)
+best_lr_model.fit(X_train, y_train)
+
+# Make predictions on the test set
+y_pred = best_lr_model.predict(X_test)
+
+# Calculate accuracy
+accuracy = accuracy_score(y_test, y_pred)
+
+print("Best Hyperparameters:", best_params)
+print("Accuracy:", accuracy) 
+=======================================LR(10-fold)=========================
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import cross_val_score
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
+
+# Load the diabetic dataset (replace 'diabetic_data.csv' with the actual dataset file name)
+data = pd.read_csv('diabetic_data.csv')
+
+# Prepare features (X) and target variable (y)
+X = data.drop('diabetic_label', axis=1)
+y = data['diabetic_label']
+
+# Create a Logistic Regression classifier
+lr_model = LogisticRegression()
+
+# Perform 10-fold cross-validation and get accuracy scores
+cv_accuracy_scores = cross_val_score(lr_model, X, y, cv=10, scoring='accuracy')
+
+# Calculate the average accuracy and standard deviation
+average_accuracy = np.mean(cv_accuracy_scores)
+std_accuracy = np.std(cv_accuracy_scores)
+
+print("Cross-Validation Accuracy Scores:", cv_accuracy_scores)
+print("Average Accuracy:", average_accuracy)
+print("Standard Deviation of Accuracy:", std_accuracy) 
+
+
+XGBOOST 
+
+LightGBM
+CatBoost
+Adaboost
+
+Bagging 
+Random Forest
+SVM
+NB
+LR
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
